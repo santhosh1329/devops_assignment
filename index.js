@@ -54,7 +54,7 @@ app.put("/:id", function(req, res) {
    })
 
 })
-var server = app.listen(5000, function () {
+var server = app.listen(5000,'0.0.0.0', function () {
    console.log("Express App running at http://127.0.0.1:5000/");
 })
 
