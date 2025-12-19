@@ -35,7 +35,8 @@ elif git show --name-only --pretty="" HEAD | grep -q "$NGINX_CFG_PATTERN"; then
      NGINX_DIR=$(dirname "$NGINX_CFG_PATH")
      
      docker pull "$NGINX_IMAGE"
-
+     echo "Config Path: $NGINX_CFG_PATH"
+     echo "Config directory: $NGINX_DIR"
      docker run --rm \
         -v "$PWD/$NGINX_DIR:/etc/nginx/nginx.conf:ro" \
         "$NGINX_IMAGE" \
