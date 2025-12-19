@@ -2,7 +2,7 @@
 set -e
 
 HAPROXY_IMAGE="haproxy:2.8"
-HAPROXY_CFG_PATTERN="haproxy.cfg"
+HAPROXY_CFG_PATTERN="haproxy/haproxy.cfg"
 
 echo "=== Checking if haproxy.cfg was modified in this commit ==="
 
