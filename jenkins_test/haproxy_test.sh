@@ -28,7 +28,10 @@ if git show --name-only --pretty="" HEAD | grep -q "$HAPROXY_CFG_PATTERN"; then
       haproxy -c -V -f /usr/local/etc/haproxy/$(basename "$HAPROXY_CFG_PATH")
 
     echo "✅ HAProxy config validation PASSED"
-elif git show --name-only --pretty="" HEAD | grep -q "$NGINX_CFG_PATTERN"; then
+else
+    echo "No haproxy.cfg changes detected — skipping haproxy validation"
+fi
+if git show --name-only --pretty="" HEAD | grep -q "$NGINX_CFG_PATTERN"; then
      echo "nginx.conf detected in commit -- running Nginx validation"
      # Find the exact path of haproxy.cfg
      NGINX_CFG_PATH=$(git show --name-only --pretty="" HEAD | grep "$NGINX_CFG_PATTERN" | head -n1)
@@ -41,6 +44,7 @@ elif git show --name-only --pretty="" HEAD | grep -q "$NGINX_CFG_PATTERN"; then
         -v "$PWD/$NGINX_DIR:/etc/nginx/:ro" \
         "$NGINX_IMAGE" \
         nginx -t 
+
 else
-    echo "Neither haproxy.cfg nor nginx.conf changes detected — skipping both validation"
+    echo "No nginx changes detected - skipping nginx validation"
 fi
